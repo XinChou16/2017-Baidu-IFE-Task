@@ -1,0 +1,31 @@
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+.head{
+	background-color: #333;
+	height: 70px;
+	width: 100%;
+}
+.head .n-left {
+	float: left;
+	width: 250px;
+	height: 100%;
+}
+.head .n-left img{
+	width: 227px;
+	height: 70px;
+}
+.head .n-right{
+	float: right;
+	margin: 8px auto;
+}
+.head .n-right li{
+	float: left;
+	margin-right: 30px;
+}
+.head .n-right li a{
+	color: #fff;
+}
