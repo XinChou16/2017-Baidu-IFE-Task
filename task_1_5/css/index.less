@@ -1,0 +1,172 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+body{
+	background-color: #dedede;
+}
+// margin float 要设置清除浮动
+.clearfix:after {
+    content: '.';
+    height: 0;
+    overflow: hidden;
+    clear: both;
+    display: block;
+    visibility: hidden;
+}
+// 头部导航
+.head-wrap{
+	.head{
+		background-color: #333;
+		height: 70px;
+		width: 100%;
+		margin-bottom: 30px;
+		.n-left{
+			float: left;
+			width:250px;
+			height: 100%;
+			img{
+				width: 227px;
+				height: 70px;
+			}
+		}
+		.n-right{
+			float: right;
+			line-height: 70px;
+			li{
+				float: left;
+				margin-right: 30px;
+				a{
+					color: #fff;
+					vertical-align: center;
+				}
+			}
+		}
+	}
+}
+
+// content-wrap Begin
+.content-wrap{
+	position: relative;
+	margin: 15px; //侧边栏放在一个div里，设置margin,not padding.
+	.content-left{
+		margin-right: 330px;
+		min-width: 600px;
+		section{
+			padding: 15px;
+			margin-bottom: 20px;
+			background-color: #fff;
+			h1,h2,.author{
+				padding-bottom: 10px;
+			}
+			h2,.author{
+				color: #aaa;
+			}
+			p{
+				text-indent: 2em;
+			}
+			img{
+				margin: 20px 0;
+			}
+		}
+		.img-list li{
+			float: left;
+			border: 1px solid #ccc;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			padding: 5px;
+			img{
+				width: 150px;
+				height: 150px;
+			}
+			// padding: 5px;
+		}
+		.last{
+			ol{
+				margin-left: 30px;
+				margin-bottom: 20px;
+			}
+			caption{
+				margin-bottom: 20px;
+			}
+			table{
+				margin-top: 10px;
+				width: 100%;
+				th{
+					color: #fff;
+					background-color: #333;
+				}
+				tfoot{
+					background-color: #eee;
+				}
+			}
+		}
+	}
+	.content-right{
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-left: 30px;
+		width: 300px;
+		background-color: #fff;
+		padding: 5px;
+		h2{
+			border-left: 3px solid #ccc;
+			padding-left: 9px;
+			font-weight: 500;
+			margin-bottom: 20px;
+		}
+		.right{
+			width: 32%;
+			display: inline-block;
+			font-size: 13px;
+			text-align: right;
+			margin-right: 20px;
+		}
+		.demand{
+			font-size: 12px;
+			color: #ccc;
+			margin-left: 120px;
+		}
+		input,.demand,select{
+			margin-bottom: 12px;
+		}
+		.describe{
+			text-align: top;
+		}
+		.multipline{
+			height: 70px;
+		}
+		.btn{
+			width: 100%;
+			height: 40px;
+			border: none;
+			background: #3355D0;
+			color: #fff;
+			border-radius: 5px;
+		}
+		.btn:hover{
+			background: #3330d0;
+		}
+	}
+}// content-wrap End
+
+// footer begin
+footer{
+	position: fix;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+}// footer end
