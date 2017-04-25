@@ -1,0 +1,39 @@
+// 全局样式
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+body{
+	background-color: #cff;
+}
+
+.container{
+	width: 1000px;
+	background-color: #fff;
+	margin: 0 auto;
+	.nav-wrap{
+		width: 100%;
+		background-color: #fff;
+		.nav{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.n-right{
+				float: right;
+				li{
+					float: left;
+					width: 70px;
+					margin-right: 10px;
+					&:last-child{
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+}
