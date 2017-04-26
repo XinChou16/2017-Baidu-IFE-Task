@@ -11,10 +11,18 @@ li {
 body {
   background-color: #cff;
 }
+.clearfix:after {
+  content: ".";
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
 .container {
-  width: 1000px;
+  width: 1280px;
   background-color: #fff;
   margin: 0 auto;
+  font-family: 微软雅黑;
 }
 .container .nav-wrap {
   width: 100%;
@@ -24,14 +32,242 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.container .nav-wrap .nav .n-left {
+  margin-left: 60px;
+  font-family: 黑体;
+  font-size: 21px;
+  color: #393a3a;
+}
 .container .nav-wrap .nav .n-right {
   float: right;
 }
 .container .nav-wrap .nav .n-right li {
   float: left;
-  width: 70px;
-  margin-right: 10px;
+  width: 65px;
+  margin-right: 28px;
+  padding-bottom: 12px;
+  text-align: center;
 }
 .container .nav-wrap .nav .n-right li:last-child {
   margin-right: 0;
+}
+.container .nav-wrap .nav .n-right li a {
+  font-size: 14px;
+  color: #8e9197;
+}
+.container .nav-wrap .nav .n-right li a:hover {
+  color: #ea6f6e;
+}
+.container .nav-wrap .nav .n-right li a:last-child:hover {
+  color: #8e9197;
+}
+.container .nav-wrap .nav .n-right li:hover {
+  border-bottom: 2px solid #ea6f6e ;
+}
+.container .nav-wrap .nav .n-right li:last-child {
+  color: #8e9197;
+}
+.container .nav-wrap .nav .n-right li:last-child:hover {
+  border-bottom: none;
+}
+.container .nav-wrap .nav .n-right li .login {
+  background-image: ;
+  width: 15px;
+  height: 17px;
+}
+.container .img {
+  position: relative;
+  width: 100%;
+}
+.container .img .wrap {
+  position: absolute;
+  top: 234px;
+  left: 118px;
+}
+.container .img .wrap .head,
+.container .img .wrap .subhead,
+.container .img .wrap .btn {
+  font-weight: normal;
+}
+.container .img .wrap .head {
+  font-size: 60px;
+  color: #fff;
+}
+.container .img .wrap .subhead {
+  font-size: 21px;
+  color: #fff;
+  width: 295px;
+  line-height: 1.6;
+  margin-bottom: 67px;
+}
+.container .img .wrap .btn {
+  width: 330px;
+  height: 60px;
+  color: #fff;
+  background-color: #ea6f6e;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+.container .img .intro .new,
+.container .img .intro .flag,
+.container .img .intro .fashion,
+.container .img .intro .complete {
+  margin: 0 auto;
+  float: left;
+  box-sizing: border-box;
+  width: 320px;
+  height: 250px;
+  padding-top: 135px;
+  padding-left: 30px;
+}
+.container .img .intro p {
+  width: 155px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #767777;
+  text-align: center;
+  border-right: 1px solid #767777;
+  padding-right: 80px;
+}
+.container .img .intro .no-border {
+  border-right: none;
+}
+.info {
+  height: 700px;
+  background-color: #33cccc;
+}
+.info .know {
+  height: 360px;
+  text-align: center;
+  background-color: #eee;
+}
+.info .know .book {
+  width: 100px;
+  height: 100px;
+  margin-top: 80px;
+}
+.info .know .description {
+  margin-top: 50px;
+}
+.info .play {
+  text-align: center;
+}
+.info .play .title {
+  margin-top: 53px;
+}
+.info .play .subtitle {
+  margin-top: 32px;
+}
+.info .play .search {
+  margin-top: 55px;
+}
+.info .play .search select,
+.info .play .search .btn {
+  width: 236px;
+  height: 36px;
+  margin-right: 28px;
+}
+.city {
+  height: 604px;
+  text-align: center;
+}
+.city .beijing,
+.city .shanghai,
+.city .shenzhen,
+.city .Hongkong {
+  float: left;
+  margin-top: 100px;
+  margin-right: 35px;
+  text-align: center;
+  outline: 1px solid #0ff;
+  width: 218px;
+  height: 339px;
+}
+.city .beijing .title,
+.city .shenzhen .title,
+.city .Hongkong .title {
+  margin-top: 13px;
+}
+.city .beijing .description,
+.city .shenzhen .description,
+.city .Hongkong .description {
+  margin-top: 13px;
+}
+.city .beijing {
+  margin-left: 147px;
+}
+.city .shanghai img {
+  position: absolute;
+  top: 17px;
+  left: 25px;
+}
+.city .shenzhen img {
+  position: absolute;
+  top: 31px;
+  left: 67px;
+}
+.city .Hongkong img {
+  margin: 54px auto;
+}
+.city .img-wrap {
+  position: relative;
+  width: 203px;
+  height: 312px;
+  margin: 13px 7px;
+  background-color: #cfd;
+  overflow: hidden;
+}
+.time .t-first {
+  background-color: #fff;
+  height: 565px;
+}
+.time .t-first .t-img {
+  height: 565px;
+  width: 849px;
+  background-image: url("http://placehold.it/849x565");
+  float: left;
+  text-align: center;
+}
+.time .t-first .t-img .title {
+  margin-top: 131px;
+}
+.time .t-first .t-img .subtitle {
+  margin-top: 10px;
+}
+.time .t-first .t-img .loaction {
+  margin-top: 40px;
+}
+.time .t-first .t-img .time {
+  margin-top: 32px;
+}
+.time .t-first .detail {
+  float: left;
+  width: 400px;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 164px;
+  padding-left: 65px;
+  text-align: center;
+  background-color: #0ff;
+}
+.time .t-first .detail .content {
+  margin-top: 31px;
+}
+.time .t-first .detail .more {
+  margin-top: 50px;
+  margin-bottom: 24px;
+  width: 105px;
+  height: 32px;
+}
+.time .t-first .detail .dot .selected {
+  background-color: #ccc;
+}
+.time .t-first .detail .dot span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border-color: #f00;
+  background-color: #fff;
 }
