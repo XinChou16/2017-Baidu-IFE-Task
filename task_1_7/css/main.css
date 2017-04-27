@@ -271,3 +271,95 @@ body {
   border-color: #f00;
   background-color: #fff;
 }
+.time .t-second {
+  height: 522px;
+  margin: 0 auto;
+  text-align: center;
+}
+.time .t-second .more,
+.time .t-second .more-img {
+  width: 32%;
+  height: 100%;
+  float: left;
+  outline: 1px solid #f09;
+}
+.time .t-second .more .logan {
+  margin-top: 170px;
+}
+.time .t-second .more .line {
+  display: block;
+  width: 30px;
+  border-bottom: 2px solid #f00;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.time .t-second .more .btn {
+  width: 168px;
+  height: 42px;
+}
+.join {
+  height: 749px;
+}
+.join .join-header {
+  width: 420px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 116px;
+  margin-bottom: 103px;
+}
+.join .join-header .line {
+  display: block;
+  width: 30px;
+  border-bottom: 2px solid #f00;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.join .join-form .join-form-l,
+.join .join-form .join-form-r {
+  float: left;
+  outline: 1px solid cyan;
+  height: 290px;
+}
+.join .join-form .join-form-l .title,
+.join .join-form .join-form-r .title {
+  margin-bottom: 27px;
+  margin-top: 37px;
+}
+.join .join-form .join-form-l li h2:nth-child(2),
+.join .join-form .join-form-r li h2:nth-child(2) {
+  margin-top: 37px;
+}
+.join .join-form .join-form-l {
+  margin-left: 137px;
+  margin-top: -37px;
+}
+.join .join-form .join-form-l .more {
+  display: block;
+  float: right;
+  margin-bottom: 37px;
+}
+.join .join-form .join-form-r {
+  margin-left: 30px;
+}
+.join .join-form .join-form-r input {
+  width: 309px;
+  height: 39px;
+}
+.join .join-form .join-form-r input:nth-of-type(odd) {
+  margin-right: 17px;
+}
+.join .join-form .join-form-r input,
+.join .join-form .join-form-r textarea,
+.join .join-form .join-form-r .btn {
+  margin-bottom: 14px;
+}
+.join .join-form .join-form-r textarea {
+  width: 100%;
+  height: 120px;
+}
+.join .join-form .join-form-r .btn {
+  width: 100%;
+  height: 40px;
+}
