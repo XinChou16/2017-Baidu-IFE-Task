@@ -363,3 +363,43 @@ body {
   width: 100%;
   height: 40px;
 }
+.footer {
+  position: relative;
+  height: 416px;
+  background-color: #4ccccc;
+}
+.footer .footer-contact {
+  width: 512px;
+  height: 358px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 90px;
+}
+.footer .footer-contact .detail {
+  margin-top: 12px;
+  margin-bottom: 29px;
+}
+.footer .footer-contact .submit {
+  width: 100%;
+  height: 41px;
+  padding-left: 10px;
+}
+.footer .footer-toTop {
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  height: 55px;
+  width: 100%;
+  padding-left: 100px;
+  line-height: 55px;
+  float: left;
+}
+.footer .footer-toTop .container {
+  width: 1280px;
+  margin: 0 auto;
+}
+.footer .footer-toTop .container .toTop {
+  display: block;
+  float: right;
+  margin-right: 108px;
+}
