@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Task_1_10</title>
+<style id="jsbin-css">
+.container{
+  margin: 100px auto;
+  border: 1px solid #ccc;
+  display: flex;
+  /* height: 500px; */
+  padding: 20px;
+  position: relative;
+}
+.ele{
+  width: 150px;
+  outline: 1px solid #f00;
+}
+.ele1{
+  height: 120px;
+}
+.ele2{
+  height: 100px;
+}
+.ele3{
+  height: 40px;
+}
+.ele4{
+  height: 200px;
+  outline: 1px solid #0f0;
+}
+@media screen and (min-width: 640px){
+  .container{
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+@media screen and (max-width: 640px){
+  .container{
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    cross-start: start;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="ele ele1"></div>
+    <div class="ele ele2"></div>
+    <div class="ele ele3"></div>
+    <div class="ele ele4"></div>
+  </div>
+</body>
+</html>
