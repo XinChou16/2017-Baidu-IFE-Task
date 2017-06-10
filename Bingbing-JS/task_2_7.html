@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="description" content="IFE2016" />
+  <meta charset="utf-8">
+  <title>task_2_7树结构</title>
+  <style>
+    .tree{
+      width: 600px;
+      height: 300px;
+      outline: 2px solid #3cd;
+      margin: 0 auto;
+      display: flex;
+    }
+    .btn{
+      width: 600px;
+      height: 250px;
+      margin: 10px auto;
+      text-align: center;
+    }
+    .treeL,.treeR{
+      width: 45%;
+      margin:  30px;
+      display: flex;
+      outline: 2px solid #3cd;
+    }
+    .treeLL,.treeLR,.treeRL,.treeRR{
+      width: 40%;
+      margin: 15px;
+      display: flex;
+      outline: 2px solid #3cd;
+    }
+    .treeLLL,.treeLLR,.treeLRL,.treeLRR,.treeRLL,.treeRLR,.treeRRL,.treeRRR{
+      width: 40%;
+      margin: 15px;
+      outline: 2px solid #3cd;
+    }
+  </style>
+</head>
+<body>
+  <div class="tree">
+    <div class="treeL">
+      <div class="treeLL">
+        <div class="treeLLL"></div>
+        <div class="treeLLR"></div>
+      </div>
+      <div class="treeLR">
+        <div class="treeLRL"></div>
+        <div class="treeLRR"></div>
+      </div>
+    </div>
+    <div class="treeR">
+      <div class="treeRL">
+        <div class="treeRLL"></div>
+        <div class="treeRLR"></div>
+      </div>
+      <div class="treeRR">
+        <div class="treeRRL"></div>
+        <div class="treeRRR"></div>
+      </div>
+    </div>
+  </div>
+  <div class="btn">
+    <button>前序遍历</button>
+    <button>中序遍历</button>
+    <button>后序遍历</button>
+  </div>
+
+
+<script>
+  var $ = function(id) {
+    return document.getElementById(id);
+  }
+  
+
+</script>
+</body>
+</html>
