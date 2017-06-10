@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="description" content="IFE2016" />
+  <meta charset="utf-8">
+  <title>task_2_60查询-模糊匹配</title>
+  <style>
+      .control{
+        width: 220px;
+        height: 300px;
+        /*outline: 1px solid cyan;*/
+        margin-left: 50px;
+      }
+      button{
+        display: block;
+        width: 80px;
+        margin-top: 10px;
+        padding: 5px;
+        border: 0;
+        background-color: #3cc;
+        color: #fff;
+        text-align: center;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+      button:hover{
+        background-color: #fff;
+        color: #3cc
+      }
+      li{
+      list-style: none;
+      background-color: #3cc;
+      display: inline-block;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 5px;
+      padding: 5px;
+      /*width: 20px;*/
+    }
+    #searchInput{
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .container{
+      margin-left: 50px;
+    }
+  </style>
+</head>
+<body>
+  
+<textarea id="text">
+
+</textarea>
+<button id="btn" type="button">click</button>
+  
+<script>
+
+  window.onload = function(){
+
+  show();   
+
+ }
+function show(){
+  var text = document.getElementById("text");
+   var btn = document.getElementById("btn");
+  
+        btn.onclick = function(){
+           alert(text.value);
+        }
+}
+</script>
+</body>
+</html>
