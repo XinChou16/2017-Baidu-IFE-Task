@@ -1,0 +1,51 @@
+ form{
+    outline: 1px solid #dedede;
+    width: 320px;
+    padding: 30px;
+    margin: 0 ;
+    font-size: 14px;
+    color: #999;
+}
+.item{
+    height: 50px;
+    margin-bottom: 30px;
+    clear: both;
+}
+.item::after{
+    display: table;
+    content:"";
+    clear: both;
+    overflow: hidden;
+}
+.item label{
+    width: 100px;
+    height: 30px;
+    line-height: 27px;
+    float: left;
+    text-align: right;
+}
+.item p{
+    margin-left: 150px;
+}
+.item input{
+    margin-left: 50px;
+    /*height: 20px;*/
+    line-height: 20px;
+}
+.sumbit{
+    cursor: pointer;
+    float: right;
+    width:50px;
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    outline: 1px solid #3cc;
+    color: #3cc;
+    border: 0; 
+}
+.sumbit:hover{
+    background-color: #3cc;
+    color: #fff;
+
+}
