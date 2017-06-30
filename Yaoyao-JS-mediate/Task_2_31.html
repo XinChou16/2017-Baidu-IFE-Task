@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Task_2_31表单联动</title>
+    <link rel="stylesheet" href="./css/task_2_31.css">
+</head>
+
+<body>
+<div class="container">
+   <form class="studentChoose">
+        <input type="radio"  checked="checked" value="在校生" id="inSchool" name="student">在校生
+        <input type="radio"  value="在校生" id="outSchool" name="student">非在校生<br>
+   </form>
+    <form class="schoolChoose" id="choose">
+    
+        <div id="school">
+            <select name="" id="cityList"></select>
+            <select name="" id="schoolList"></select>
+        </div>
+        <div id="company" style="display:none;">
+            就业单位<br>
+            <input type="text" placeholder="请输入工作单位">
+        </div>
+    </form>
+</div> 
+
+<script src="./js/task_2_31.js"></script>
+
+</body>
+
+</html>
