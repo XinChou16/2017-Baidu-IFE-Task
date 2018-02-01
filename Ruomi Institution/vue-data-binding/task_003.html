@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="btnEvent()">click</button>
+  <script>
+    function btnEvent() {
+      // http://jsbin.com/rekaloz/edit?js
+
+      // URL: http://ife.baidu.com/course/detail/id/21
+
+
+      // 发布，订阅模式
+      function Event() {
+        this.event = {};
+      }
+      Event.prototype = {
+        // 监听事件
+        on: function (attr, callback) {
+          if (this.event.hasOwnProperty(attr)) {
+            this.eventt[attr].push(callback)
+          }
+          this.event[attr] = [callback]
+        },
+        // 移除事件
+        off: function (attr) {
+          if (this.event.hasOwnProperty(attr)) {
+            delete this.event[attr]
+          }
+        },
+        // 触发事件
+        emit: function (attr, ...args) {
+          while (attr) {
+            if (this.event[attr]) {
+              this.event[attr].forEach(cb => {
+                cb(args);
+              })
+            }
+            let index = attr.lastIndexOf('.');
+            attr = index > 0 ? attr.slice(0, index) : '';
+          }
+        }
+      }
+
+      function Observer(data, parentObj, eventBus) {
+        this.data = data;
+        this.eventBus = eventBus || new Event();
+        this.runObserver(parentObj);
+      }
+
+      Observer.prototype.runObserver = function (parentObj) {
+        let val;
+        for (let key in this.data) {
+          if (this.data.hasOwnProperty(key) && this.data[key] != undefined) {
+            val = this.data[key];
+            var parObj = parentObj ? parentObj + '.' + key : key;
+            // monitor data's set and get
+            this.getAndSet(key, val, parentObj);
+
+            // 深层遍历
+            if (typeof val === 'object') {
+              new Observer(val, parObj, this.eventBus)
+            }
+          }
+        }
+      }
+
+      Observer.prototype.getAndSet = function (key, val, parentObj) {
+        let observer = this;
+        Object.defineProperty(this.data, key, {
+          enumerable: true,
+          configurable: true,
+          get: function () {
+            console.log(`你访问了${key}属性`)
+            return val;
+          },
+          set: function (newVal) {
+            if (newVal == val) return;
+            console.log(`你设置了${key}属性, 新的值为${newVal}`)
+
+            observer.eventBus.emit(parentObj ? parentObj + '.' + key : key, val, newVal)
+            if (typeof newVal == 'object') { // 新的值为对象，也用observer包装
+              new Observer(newVal, parentObj ? parentObj + '.' + key : key, observer.eventBus)
+            }
+            val = newVal;
+
+          }
+        })
+      }
+
+      Observer.prototype.getParent = function (parentObj, prop) {
+        return parentObj ? parentObj + '.' + prop : parentObj;
+      }
+
+      Observer.prototype.$watch = function (attr, callback) {
+        this.eventBus.on(attr, callback);
+        console.log('watching: ' + attr)
+      }
+
+
+      var stu = new Observer({
+        name: {
+          fn: 'xin',
+          ln: 'zhou'
+        },
+        age: 23,
+        school: 'SCNU'
+      }, '')
+
+      console.log(stu.data.name);
+      stu.$watch('name', newName => {
+        console.log(`我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。`)
+      })
+      // stu.data.name.fn = 'fnfnfn'
+      // stu.data.name.ln = 'lnlnln'
+      // console.log(stu.data.name);
+
+    }
+  </script>
+</body>
+</html>
