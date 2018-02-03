@@ -10,49 +10,75 @@
   <div id="app">
     <p>姓名：{{user.name}}</p>
     <p>年龄：{{user.age}}</p>
+    <p>学校：{{school}}</p>
 </div>
 <script>
   class Vue {
     constructor(option) {
       this.option = option;
-      this.el = document.querySelector(this.option.el);
-      this.iteratnode(this.el);
+      this.el = option.el;
+      this.data = option.data;
+      this.reg = /{{(.+?)}}/g; 
+      this.iteratnode();
     }
 
-    // 
-    iteratnode(node) {
+    // 遍历节点
+    iteratnode(node=this.el) {
+      node = (typeof node === 'string') ? document.querySelector(node):node;
       let childNodes = node.childNodes;
-      for(let i = 0; i<childNodes.length;i++) {
-        if(childNodes[i].nodeType === 1) {
-          if(childNodes[i].childNodes) {
-            this.iteratnode(childNodes[i])
+      
+      Array.from(childNodes).forEach( node => {
+        // 如果为文字节点，则进行替换
+        if(node.nodeType === 3){
+          this.mustache(node);
+        }
+        // 如果存在子节点则继续进行解析
+        if (node.childNodes.length) {
+          this.iteratnode(node);
+        }
+      })
+    }
+
+    // mustache parse
+    mustache(node) {
+      let text = node.textContent;
+      node.template = text;
+
+      if (this.reg.test(text)) {
+        let newText = text.replace(this.reg, (match, p1) => {
+          if (p1.includes('.')) {// 属性为一个对象
+            return this.objParse(p1);
+          } else {
+            return this.data[p1]; // 属性刚好不为一个对象
           }
-          // console.log(childNodes[i]);
-        }
-        if(childNodes[i].nodeType === 3) {
-          this.domParse(childNodes[i])
-        }
+        })
+        node.textContent = newText; // 模板解析替换
       }
     }
 
-    domParse(node){
-      let reg = /{{.+?}}/g;
-      let txt = node.data.replace(reg, ($1,$2,$3) => {
-        console.log($1,$2,$3);
-      })
+    // 查找模板中的内容，替换为数据当中的值
+    objParse(text){
+      let keys = text.split('.'); 
+      let val = this.data;
+      for (let i = 0; i < keys.length; i++) {
+        val = val[keys[i]];
+      }
+      return val;
     }
   }
 
-
-  let app = new Vue({
+  !function () {
+    let app = new Vue({
       el: '#app',
       data: {
         user: {
           name: 'xinchou',
           age: 25
-        }
+        },
+        school: 'scnu'
       }
     });
+  }()
 </script>
 </body>
 </html>
