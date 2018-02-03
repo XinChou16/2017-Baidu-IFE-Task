@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态数据绑定-4-实现模板解析</title>
+</head>
+<body>
+  <div id="app">
+    <p>姓名：{{user.name}}</p>
+    <p>年龄：{{user.age}}</p>
+</div>
+<script>
+  class Vue {
+    constructor(option) {
+      this.option = option;
+      this.el = document.querySelector(this.option.el);
+      this.iteratnode(this.el);
+    }
+
+    // 
+    iteratnode(node) {
+      let childNodes = node.childNodes;
+      for(let i = 0; i<childNodes.length;i++) {
+        if(childNodes[i].nodeType === 1) {
+          if(childNodes[i].childNodes) {
+            this.iteratnode(childNodes[i])
+          }
+          // console.log(childNodes[i]);
+        }
+        if(childNodes[i].nodeType === 3) {
+          this.domParse(childNodes[i])
+        }
+      }
+    }
+
+    domParse(node){
+      let reg = /{{.+?}}/g;
+      let txt = node.data.replace(reg, ($1,$2,$3) => {
+        console.log($1,$2,$3);
+      })
+    }
+  }
+
+
+  let app = new Vue({
+      el: '#app',
+      data: {
+        user: {
+          name: 'xinchou',
+          age: 25
+        }
+      }
+    });
+</script>
+</body>
+</html>
