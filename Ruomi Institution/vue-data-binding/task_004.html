@@ -11,6 +11,7 @@
     <p>姓名：{{user.name}}</p>
     <p>年龄：{{user.age}}</p>
     <p>学校：{{school}}</p>
+    <p>家乡：{{hometown.province.city.county}}</p>
 </div>
 <script>
   class Vue {
@@ -24,6 +25,7 @@
 
     // 遍历节点
     iteratnode(node=this.el) {
+      // 遍历节点使用，如果已经是节点，就不用去获取节点了
       node = (typeof node === 'string') ? document.querySelector(node):node;
       let childNodes = node.childNodes;
       
@@ -37,6 +39,7 @@
           this.iteratnode(node);
         }
       })
+
     }
 
     // mustache parse
@@ -45,15 +48,17 @@
       node.template = text;
 
       if (this.reg.test(text)) {
+        // match API usage https://segmentfault.com/a/1190000006708881
         let newText = text.replace(this.reg, (match, p1) => {
           if (p1.includes('.')) {// 属性为一个对象
             return this.objParse(p1);
           } else {
-            return this.data[p1]; // 属性刚好不为一个对象
+            return this.data[p1]; // 属性不为一个对象
           }
         })
-        node.textContent = newText; // 模板解析替换
+        node.textContent = newText; // 替换
       }
+
     }
 
     // 查找模板中的内容，替换为数据当中的值
@@ -75,7 +80,14 @@
           name: 'xinchou',
           age: 25
         },
-        school: 'scnu'
+        school: 'scnu',
+        hometown:{
+          province:{
+            city:{
+              county:'jinxian'
+            }
+          }
+        }
       }
     });
   }()

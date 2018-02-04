@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务5 - 双向绑定</title>
+</head>
+<body>
+    
+  <div id="app">
+    <p>姓名：{{user.name}}</p>
+    <p>年龄：{{user.age}}</p>
+    <p>学校：{{school}}</p>
+    <p>家乡：{{hometown.province.city.county}}</p>
+</div>
+<script>
+	class Vue {
+		constructor(opt) {
+			this.option = opt;
+			this.data = opt.data;
+			this.el = opt.el;
+			this.reg = /{{(.+?)}}/g;
+			this.renderProps = {};
+
+			this.iterateNode();
+		}
+
+    // 遍历节点
+		iterateNode( node = this.el ) {
+			node = (typeof node === 'string') ? document.querySelector(node) : node;
+      let childNodes = node.childNodes;
+
+			Array.from(childNodes).forEach( node => {
+				if( node.nodeType === 1 ) { // 元素节点
+					// this.iterateNode(node);
+				} 
+				if( node.nodeType === 3 ) { // 文字节点
+          node.textContent = this.mustache(node);
+				}
+        if( node.childNodes.length ) {
+          this.iterateNode(node);
+        }
+			})
+		}
+
+    // 解析节点文字
+		mustache(node) {
+      let template = node.textContent;
+      if(this.reg.test(template)){
+
+				node.template = template;
+				let prop = template.split(this.reg)[1]; 
+				this.domBind(prop,node);
+				return this.templateRender(template);
+      }
+		}
+
+		domBind(prop,node) {
+			if( this.renderProps[prop] === undefined) {
+				this.renderProps[prop] = [];
+				this.monitorData(prop);
+			}
+			this.renderProps[prop].push(node);
+		}
+
+		monitorData(prop) {
+			let initData = this.data[prop];
+			let self = this;
+			Object.defineProperty(this.data,prop, {
+				get() {
+					return initData;
+				},
+				set(newVal) {
+					initData = newVal;
+					self.render(prop);
+				}
+			})
+		}
+		render(prop)  {
+			let renderProp = this.renderProps[prop];
+			renderProp.forEach( node => {
+				node.textContent = this.templateRender(node.template)
+			})
+		}
+    // 模板渲染
+    templateRender(template) {
+      return template.replace( this.reg, (match,p1) => {
+        return this.textParse(p1);
+      })
+    }
+
+		textParse(keys) {
+			if( keys.includes('.') ) {
+				let props = keys.split('.');
+				let val = this.data;
+				for (let i = 0; i < props.length; i++) {
+					val = val[props[i]]
+				};
+				return val;
+			}
+      return this.data[keys];
+		}
+	}
+
+  // 实例化
+	// !function () {
+		let app = new Vue({
+			el: '#app',
+			data: {
+				user: {
+					name: 'xinchou',
+					age: 25
+				},
+				school: 'scnu',
+				hometown: {
+					province: {
+						city: {
+							county: 'jinxian'
+						}
+					}
+				}
+			}
+		});
+	// }()
+</script>
+</body>
+</html>

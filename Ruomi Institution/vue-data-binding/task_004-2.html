@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+  <div id="app">
+    <p>姓名：{{user.name}}</p>
+    <p>年龄：{{user.age}}</p>
+    <p>学校：{{school}}</p>
+    <p>家乡：{{hometown.province.city.county}}</p>
+</div>
+<script>
+	class Vue {
+		constructor(opt) {
+			this.option = opt;
+			this.data = opt.data;
+			this.el = opt.el;
+
+			this.iterateNode();
+		}
+
+		iterateNode( node = this.el ) {
+			node = (typeof node === 'string') ? document.querySelector(node) : node;
+			let childNodes = node.childNodes;
+
+			Array.from(childNodes).forEach( node => {
+				if( node.nodeType === 1 ) { // 元素节点
+					this.iterateNode(node);
+				} 
+				if( node.nodeType === 3 ) { // 文字节点
+					this.mustache(node);
+				}
+			})
+
+		}
+
+		mustache(node) {
+			let text = node.textContent;
+			let reg = /{{(.+?)}}/g;
+
+			if( reg.test(text) ) {
+				let newText = text.replace(reg, (match, p1) => {
+					return this.textParse(p1);
+				}) 
+			node.textContent = newText;
+			}
+
+		}
+
+		textParse(keys) {
+			if( keys.includes('.') ) {
+				let props = keys.split('.');
+				let val = this.data;
+
+				for (let i = 0; i < props.length; i++) {
+					val = val[props[i]]
+				};
+				return val;
+			}else {
+				return this.data[keys];
+			}
+		}
+	}
+
+	!function () {
+		let app = new Vue({
+			el: '#app',
+			data: {
+				user: {
+					name: 'xinchou',
+					age: 25
+				},
+				school: 'scnu',
+				hometown: {
+					province: {
+						city: {
+							county: 'jinxian'
+						}
+					}
+				}
+			}
+		});
+	}()
+</script>
+</body>
+</html>
