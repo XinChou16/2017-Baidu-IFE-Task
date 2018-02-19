@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>clock</title>
+  <style>
+    canvas{
+      /* border: 1px solid cyan; */
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="clock" width="200" height="200"></canvas>
+  <p>
+    北京时间
+    <span id="hour"></span>
+    <span id="minute"></span>
+    <span id="second"></span>
+  </p>
+  <script>
+    // https://github.com/minzizi/shangye/blob/master/clock.html
+    const canvas = document.querySelector('#clock');
+    let width = canvas.width;
+    let height = canvas.height;
+    let r = width / 2;
+    if(canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      
+      function drawBackground() {
+
+        // draw clock profile
+        ctx.save(); // 缺少会出现偏移
+        ctx.translate(r,r); // 变换原点
+        ctx.beginPath(); // 开始路径
+        ctx.lineWidth = 10; // 线宽
+        ctx.arc(0,0,r-5,0,2*Math.PI,false);
+        ctx.stroke();
+
+        // draw hours
+        const hours = [3,4,5,6,7,8,9,10,11,12,1,2];
+        hours.forEach( (hour,i) => {
+          ctx.font = '18px Arial';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          let rad = 2*Math.PI/12*i; // 整圆分成12等分
+          let x = Math.cos(rad)*(r-30);
+          let y = Math.sin(rad)*(r-30);
+          ctx.fillText(hour,x,y);
+
+          // draw seconds dot
+          for (let i = 0; i < 60; i++) {
+            let rad = 2*Math.PI/60*i;
+            let x = Math.cos(rad)*(r-15);
+            let y = Math.sin(rad)*(r-15);
+            ctx.beginPath();
+            if(i % 5 == 0) {
+              ctx.fillStyle = '#000';
+              ctx.arc(x,y,2,0,2*Math.PI,false);
+            }else {
+              ctx.fillStyle = '#ccc';
+              ctx.arc(x,y,2,0,2*Math.PI,false);
+            }
+            ctx.fill();
+          }
+        })
+      }
+
+      // hour
+      function drawHour(hour,min) {
+        ctx.save();
+        ctx.beginPath();
+        let hrad = 2*Math.PI/12*hour;
+        let mrad = 2*Math.PI/12/60*min;
+        ctx.rotate(hrad+mrad); // 时针加分针的角度
+        ctx.lineWidth = 6;
+        ctx.lineCap = 'round';
+        ctx.moveTo(0,10);
+        ctx.lineTo(0,-r/2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // minute
+      function drawMinute(min) {
+        ctx.save();
+        ctx.beginPath();
+        let mrad = 2*Math.PI/60*min;
+        ctx.rotate(mrad); // 分针的角度
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.moveTo(0,10);
+        ctx.lineTo(0,-r+30);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // second
+      function drawSecond(sec) {
+        ctx.save();
+        ctx.beginPath();
+        let mrad = 2*Math.PI/60*sec;
+        ctx.rotate(mrad); // 分针的角度
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'round';
+        ctx.moveTo(-2,20);
+        ctx.lineTo(2,20);
+        ctx.lineTo(1,-r+18);
+        ctx.lineTo(-1,-r+18);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // center dot
+      function drawDot() {
+        ctx.beginPath();
+        ctx.arc(0,0,3,0,2*Math.PI,false);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+
+      function renderTime(h,m,s) {
+        let hour = document.querySelector('#hour');
+        let minute = document.querySelector('#minute');
+        let second = document.querySelector('#second');
+
+        hour.textContent = `${h}时`;
+        minute.textContent = `${m}分`;
+        second.textContent = `${s}秒`;
+      }
+
+      // init drawing
+      !function init() {
+        var draw = function() {
+          ctx.clearRect(0, 0, width, height);
+          let now = new Date();
+          let hour = now.getHours();
+          let minute = now.getMinutes();
+          let second = now.getSeconds();
+
+          // console.log(`现在是北京时间${hour}时，${minute}分，${second}秒`)
+          renderTime(hour,minute,second); // render time to dom
+          drawBackground();
+          drawHour(hour, minute);
+          drawMinute(minute);
+          drawSecond(second);
+          drawDot();
+          ctx.restore();
+        }
+
+        setInterval( () => {
+          draw();
+        },1000);
+      }()
+
+    }
+  </script>
+</body>
+</html>

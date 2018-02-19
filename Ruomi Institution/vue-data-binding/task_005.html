@@ -15,128 +15,128 @@
     <p>家乡：{{hometown.province.city.county}}</p>
 </div>
 <script>
-	class Vue {
-		constructor(opt) {
-			this.option = opt;
-			this.data = opt.data;
-			this.el = opt.el;
-      this.reg = /{{(.+?)}}/g; // 
-      this.renderProp = {};// 需要重新渲染的节点
+    class Vue {
+      constructor(opt) {
+        this.option = opt;
+        this.data = opt.data;
+        this.el = opt.el;
+        this.reg = /{{(.+?)}}/g; // 
+        this.renderProp = {};// 需要重新渲染的节点
 
-			this.iterateNode();
-		}
+        this.iterateNode();
+      }
 
-    // 遍历节点
-		iterateNode( node = this.el ) {
-			node = (typeof node === 'string') ? document.querySelector(node) : node;
-      let childNodes = node.childNodes;
+      // 遍历节点
+      iterateNode(node = this.el) {
+        node = (typeof node === 'string') ? document.querySelector(node) : node;
+        let childNodes = node.childNodes;
 
-			Array.from(childNodes).forEach( node => {
-				if( node.nodeType === 1 ) { // 元素节点
-					// this.iterateNode(node);
-				} 
-				if( node.nodeType === 3 ) { // 文字节点
-          node.textContent = this.mustache(node);
-				}
-        if( node.childNodes.length ) {
-          this.iterateNode(node);
+        Array.from(childNodes).forEach(node => {
+          if (node.nodeType === 1) { // 元素节点
+            // this.iterateNode(node);
+          }
+          if (node.nodeType === 3) { // 文字节点
+            node.textContent = this.mustache(node);
+          }
+          if (node.childNodes.length) {
+            this.iterateNode(node);
+          }
+        })
+
+      }
+
+      // 解析节点文字
+      mustache(node) {
+        let template = node.textContent;
+        node.template = template; // 保存template信息，后面重新渲染需要用到
+        if (this.reg.test(template)) {
+
+          // 绑定dom节点,传入属性和节点
+          let prop = template.split(this.reg)[1];
+          this.bindDom(prop, node);
+
+          return this.templateRender(template);
         }
-			})
+      }
 
-		}
+      // 将prop全部存到对象里
+      bindDom(prop, node) {
+        if (this.renderProp[prop] === undefined) {
+          this.renderProp[prop] = [];
 
-    // 解析节点文字
-		mustache(node) {
-      let template = node.textContent;
-      node.template = template; // 保存template信息，后面重新渲染需要用到
-      if(this.reg.test(template)){
+          //监听数据变化
+          this.monitorData(prop);
+        }
+        this.renderProp[prop].push(node);
+      }
 
-        // 绑定dom节点,传入属性和节点
-        let prop = template.split(this.reg)[1];
-        this.bindDom( prop, node);
+      // 监听数据变化
+      monitorData(prop) {
+        let vue$1 = this;
+        let initalData = this.data[prop]; // 初始值，作为监听的值
+        Object.defineProperty(this.data, prop, {
+          get() {
+            return initalData;
+          },
+          set(newVal) {
+            console.log(`你设置了${prop}属性,原始值为${initalData},新的值为${newVal}`);
+            initalData = newVal;
+            // 渲染模型
+            vue$1.model2view(prop);
+          }
+        })
+      }
 
-       return this.templateRender(template);
+      //数据变化，渲染dom
+      model2view(prop) {
+        // 获得属性
+        let rendeProp = this.renderProp[prop];
+        rendeProp.forEach(node => {
+          if (node.nodeType === 3) {
+            node.textContent = this.templateRender(node.template);
+          }
+        })
+      }
+
+      // 模板渲染
+      templateRender(template) {
+        return template.replace(this.reg, (match, p1) => {
+          return this.textParse(p1);
+        })
+      }
+
+      textParse(keys) { //参数：{{msg}}，接收msg
+        if (keys.includes('.')) {
+          let props = keys.split('.');
+          let val = this.data;
+          for (let i = 0; i < props.length; i++) {
+            val = val[props[i]]
+          };
+          return val;
+        }
+        return this.data[keys]; // 返回属性对应的值
       }
     }
-    
-    // 将prop全部存到对象里
-    bindDom(prop,node){
-      if(this.renderProp[prop] === undefined) {
-        this.renderProp[prop] = [];
 
-        //监听数据变化
-        this.monitorData(prop);
+    // 实例化
+    // !function () {
+    let app = new Vue({
+      el: '#app',
+      data: {
+        user: {
+          name: 'xinchou',
+          age: 25
+        },
+        school: 'scnu',
+        hometown: {
+          province: {
+            city: {
+              county: 'jinxian'
+            }
+          }
+        }
       }
-      this.renderProp[prop].push(node);
-    }
-
-    // 监听数据变化
-    monitorData(prop) {
-      let vue$1 = this;
-      let initalData = this.data[prop]; // 初始值，作为监听的值
-      Object.defineProperty(this.data, prop, {
-        get() {
-          return initalData;
-        },
-        set(newVal) {
-          console.log(`你设置了${prop}属性,原始值为${initalData},新的值为${newVal}`);
-          initalData = newVal;
-          // 渲染模型
-          vue$1.model2view(prop);
-        }
-      })
-    }
-
-    //数据变化，渲染dom
-    model2view(prop) {
-      // 获得属性
-      let rendeProp = this.renderProp[prop];
-      rendeProp.forEach( node => {
-        if(node.nodeType === 3) {
-          node.textContent = this.templateRender(node.template);
-        }
-      })
-    }
-
-    // 模板渲染
-    templateRender(template) {
-      return template.replace( this.reg, (match,p1) => {
-        return this.textParse(p1);
-      })
-    }
-
-		textParse(keys) { //参数：{{msg}}，接收msg
-			if( keys.includes('.') ) {
-				let props = keys.split('.');
-				let val = this.data;
-				for (let i = 0; i < props.length; i++) {
-					val = val[props[i]]
-				};
-				return val;
-			}
-      return this.data[keys]; // 返回属性对应的值
-		}
-	}
-
-  // 实例化
-	// !function () {
-		let app = new Vue({
-			el: '#app',
-			data: {
-				user: {
-					name: 'xinchou',
-					age: 25
-        },
-        school:'scnu',
-				hometown: {
-					province: {
-						city: {
-							county: 'jinxian'
-						}
-					}
-				}
-			}
-		});
+    });
 	// }()
 </script>
 </body>
